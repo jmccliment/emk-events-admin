@@ -11,7 +11,7 @@ import { Button } from '@material-ui/core';
 const getAllBeltsAsync = async setter => getAllAsync(repositories.belts, setter);
 const getStudentByIdAsync = async (studentId, setter) => getByIdAsync(repositories.students, studentId, setter);
 
-export const UpdateStudent = ({ studentId }) => {
+export const UpdateStudent = ({ studentId, onSave = () => {} }) => {
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [beltId, setBeltId] = useState('');
@@ -33,8 +33,12 @@ export const UpdateStudent = ({ studentId }) => {
     });
   }, [studentId]);
 
-  return (
+  const updateStudent = async event => {
+    await repositories.students.update(studentId, { name, dateOfBirth, beltId });
+    onSave(await repositories.students.getById(studentId));
+  }
 
+  return (
     (name && dateOfBirth && beltId && <form noValidate autoComplete="off">
       <TextField label="Student Name" value={name} onChange={e => setName(e.target.value)} />
       <TextField type="date" label="Date of Birth" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} />
@@ -46,7 +50,7 @@ export const UpdateStudent = ({ studentId }) => {
           ))}
         </Select>
       </FormControl>
-      <Button onClick={e => console.dir({ studentId, name, dateOfBirth, beltId })}>Save</Button>
+      <Button onClick={updateStudent}>Save</Button>
     </form>
     ) || null
   );

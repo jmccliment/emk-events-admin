@@ -1,3 +1,4 @@
+import { firestore as db } from './firebase';
 const convertToBasicData = doc => ({ id: doc?.id, ...doc?.data()});
 
 export const createBasicRepositoryFromFirestoreCollection = (collection, map = convertToBasicData) => {
@@ -11,8 +12,16 @@ export const createBasicRepositoryFromFirestoreCollection = (collection, map = c
     const doc = await collection.doc(id).get();
     return map(doc);
   }
+
+  const update = async (id, updates) => {
+    const docRef = collection.doc(id);
+    await db.runTransaction(async transaction => {
+      await transaction.update(docRef, updates);
+    })
+  }
   return { 
     getAll,
-    getById
+    getById,
+    update
   }
 }

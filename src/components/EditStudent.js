@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export const EditStudent = ({student, belts, save}) => {
+export const EditStudent = ({student, belts}) => {
   const [name, setName] = useState(student.name || '');
   const [dateOfBirth, setDateOfBirth] = useState(student.dateOfBirth || '');
   const [beltId, setBeltId] = useState(student.beltId || '');
