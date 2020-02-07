@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Router, Link, navigate } from '@reach/router';
+import { Router } from '@reach/router';
 import { ButtonAppBar } from './components/ButtonAppBar';
+import { MenuDrawer } from './components/MenuDrawer';
 import { Students } from './components/Students'
 import { Belts } from './components/Belts';
 import { UpdateStudent } from './components/UpdateStudent';
 
 
 function App() {
-  const [refreshToken, setRefreshToken] = useState(false);
+  const [studentRefreshToken, setStudentRefreshToken] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   useEffect(() => {
-    if(refreshToken) {
-      setRefreshToken(false);
+    if(studentRefreshToken) {
+      setStudentRefreshToken(false);
     }
-  }, [refreshToken]);
+  }, [studentRefreshToken]);
+
   return (
 
     <div className="App">
-      <ButtonAppBar />
-      <nav>
-        <ul>
-          <li><Link to="/students">Students</Link></li>
-          <li><Link to="/belts">Belts</Link></li>
-        </ul>
-      </nav>
+      <ButtonAppBar openDrawer={() => setOpenDrawer(true)} />
+      <MenuDrawer isOpen={openDrawer} closeDrawer={() => setOpenDrawer(false)} />
       <Router>
-        <Students path="/students" refreshToken={refreshToken}>
-          <UpdateStudent path=":studentId" onSave={() => setRefreshToken(true)} />
+        <Students path="/students" refreshToken={studentRefreshToken}>
+          <UpdateStudent path=":studentId" onSave={() => setStudentRefreshToken(true)} />
         </Students>
         <Belts path="/belts" />
       </Router>

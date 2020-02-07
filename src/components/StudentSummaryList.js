@@ -22,7 +22,7 @@ const StudentSummary = ({id, name, dateOfBirth, age, rank}) => {
         </ul>
         </CardContent>
         <CardActions>
-          <Button onClick={() => navigate(`students/${id}`)} />
+          <Button onClick={() => navigate(`students/${id}`)}>Edit</Button>
         </CardActions>
     </Card>
   )
