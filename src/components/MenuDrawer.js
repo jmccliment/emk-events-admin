@@ -85,7 +85,8 @@ export const MenuDrawer = ({isOpen, openDrawer, closeDrawer}) => {
 
   const links = [
     ['Students', '/students', faUserNinja],
-    ['Belts', '/belts', faAlignJustify]
+    ['Belts', '/belts', faAlignJustify],
+    ['Events', '/events', ]
   ]
 
   return (

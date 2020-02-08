@@ -24,7 +24,7 @@ export function ButtonAppBar({openDrawer}) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static"
+      <AppBar position="fixed"
               className={classes.appBar}>
         <Toolbar>
           <IconButton edge="start" 
